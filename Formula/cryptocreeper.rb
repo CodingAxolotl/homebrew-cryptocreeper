@@ -6,17 +6,26 @@ class Cryptocreeper < Formula
   version "1.0"
 
   def install
+    # Store in pkgshare first (safe)
     pkgshare.install "cryptocreeper.png"
+    
+    # Also copy to user's Downloads folder
+    downloads = File.join(Dir.home, "Downloads")
+    FileUtils.mkdir_p(downloads) # create Downloads folder if it somehow doesn't exist
+    FileUtils.cp("#{pkgshare}/cryptocreeper.png", downloads)
   end
 
   def caveats
     <<~EOS
       🧨 CryptoCreeper installed!
 
-      Image location:
+      Image location in Downloads:
+        ~/Downloads/cryptocreeper.png
+
+      Or in Homebrew pkgshare:
         #{pkgshare}/cryptocreeper.png
 
-      Copy it wherever you want 😄
+      Enjoy 😄
     EOS
   end
 end
